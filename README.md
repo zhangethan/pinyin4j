@@ -1,20 +1,10 @@
 pinyin4j
 ========
 
-A copy of http://sourceforge.net/projects/pinyin4j, then deploy it to maven central repository.
-
-### Download ###
-Download the jar via maven:
-```xml
-<dependency>
-    <groupId>com.belerweb</groupId>
-    <artifactId>pinyin4j</artifactId>
-    <version>2.5.0</version>
-</dependency>
-```
+来自库：https://github.com/belerweb/pinyin4j ，有机会长期维护。
 
 ### QQ Group ###
-QQ群：479540440
+QQ群：939928163
 
 ### 多音字识别 ###
 在pinyin4j的基础上添加了多音字识别，带近一万个多音词，但是这远远不够，所以用户可设置外挂词库	
