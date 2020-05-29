@@ -244,23 +244,24 @@ public class PinyinHelper {
      * pronounciation in Chinese. <b> This interface will be removed in next
      * release. </b>
      *
-     * @param str          A given string contains Chinese characters
-     * @param outputFormat Describes the desired format of returned Hanyu Pinyin string
-     * @param separate     The string is appended after a Chinese character (excluding
-     *                     the last Chinese character at the end of sentence). <b>Note!
-     *                     Separate will not appear after a non-Chinese character</b>
-     * @param retain       Retain the characters that cannot be converted into pinyin characters
+     * @param str             A given string contains Chinese characters
+     * @param outputFormat    Describes the desired format of returned Hanyu Pinyin string
+     * @param separate        The string is appended after a Chinese character (excluding
+     *                        the last Chinese character at the end of sentence). <b>Note!
+     *                        Separate will not appear after a non-Chinese character</b>
+     * @param retain          Retain the characters that cannot be converted into pinyin characters
+     * @param retainSeparator Whether retain the separator between those can be converted characters and those can not ones.
      * @return a String identical to the original one but all recognizable
      * Chinese characters are converted into main (first) Hanyu Pinyin
      * representation
      */
     static public String toHanYuPinyinString(String str, HanyuPinyinOutputFormat outputFormat,
-                                             String separate, boolean retain) throws BadHanyuPinyinOutputFormatCombination {
+                                             String separate, boolean retain, boolean retainSeparator) throws BadHanyuPinyinOutputFormatCombination {
         ChineseToPinyinResource resource = ChineseToPinyinResource.getInstance();
         StringBuilder resultPinyinStrBuf = new StringBuilder();
 
         char[] chars = str.toCharArray();
-
+        boolean lastHasResult = false;
         for (int i = 0; i < chars.length; i++) {
             String result = null;//匹配到的最长的结果
             char ch = chars[i];
@@ -276,8 +277,9 @@ public class PinyinHelper {
                         success = current;
                     }
                     currentTrie = currentTrie.getNextTire();
+                    current++;
                 }
-                current++;
+
                 if (current < chars.length)
                     ch = chars[current];
                 else
@@ -285,9 +287,19 @@ public class PinyinHelper {
             }
             while (currentTrie != null);
 
-            if (result == null) {//如果在前缀树中没有匹配到，那么它就不能转换为拼音，直接输出或者去掉
-                if (retain) resultPinyinStrBuf.append(chars[i]);
+            if (result == null) {//如果在前缀树中没有匹配到，那么它就不能转换为拼音，直接输出或者去掉；并且移除前一个空格，如果之前是手动加上的话
+                if (retain) {
+                    resultPinyinStrBuf.append(chars[i]);
+                }
+                if (i > 0 && !retainSeparator && lastHasResult) {
+                    resultPinyinStrBuf.delete(resultPinyinStrBuf.length() - 1 - separate.length(), resultPinyinStrBuf.length() - 1);
+                }
             } else {
+                if (i > 0 && retainSeparator && !lastHasResult) {
+                    if (current < chars.length) {
+                        resultPinyinStrBuf.append(separate);
+                    }
+                }
                 String[] pinyinStrArray = resource.parsePinyinString(result);
                 if (pinyinStrArray != null) {
                     for (int j = 0; j < pinyinStrArray.length; j++) {
@@ -301,9 +313,23 @@ public class PinyinHelper {
                 }
             }
             i = success;
+            lastHasResult = (result != null);
         }
 
         return resultPinyinStrBuf.toString();
+    }
+
+    static public String toHanYuPinyinString(String str, HanyuPinyinOutputFormat outputFormat,
+                                             String separate, boolean retain) throws BadHanyuPinyinOutputFormatCombination {
+        return toHanYuPinyinString(str, outputFormat, separate, retain, false);
+    }
+
+    static public String toHanYuPinyinString(String str, HanyuPinyinOutputFormat outputFormat) throws BadHanyuPinyinOutputFormatCombination {
+        return toHanYuPinyinString(str, outputFormat, "", true, false);
+    }
+
+    static public String toHanYuPinyinString(String str) throws BadHanyuPinyinOutputFormatCombination {
+        return toHanYuPinyinString(str, new HanyuPinyinOutputFormat(), "", true, false);
     }
 
     // ! Hidden constructor
