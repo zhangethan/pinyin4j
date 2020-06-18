@@ -1,7 +1,7 @@
 pinyin4j
 ========
 
-来自库：https://github.com/belerweb/pinyin4j ，有机会长期维护。
+来自库：https://github.com/belerweb/pinyin4j ，但有机会长期维护。
 
 ### QQ Group ###
 QQ群：939928163
