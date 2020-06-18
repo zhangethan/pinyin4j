@@ -57,7 +57,7 @@ class GwoyeuRomatzyhTranslator {
             "../" + PinyinRomanizationType.GWOYEU_ROMATZYH.getTagName()
                 + tones[Integer.parseInt(toneNumberStr) - 1] + "/text()";
 
-          gwoyeuStr = hanyuNode.xpathSelectString(xpathQuery2);
+        gwoyeuStr = hanyuNode.xpathSelectString(xpathQuery2);
       }
     } catch (ParseException e) {
       e.printStackTrace();

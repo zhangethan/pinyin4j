@@ -141,9 +141,10 @@ class PinyinFormatter {
 
           char markedVowel = allMarkedVowelStr.charAt(vowelLocation);
 
-            return lowerCasePinyinStr.substring(0, indexOfUnmarkedVowel).replaceAll("v",
-                    "ü") + markedVowel + lowerCasePinyinStr.substring(indexOfUnmarkedVowel + 1,
-                    lowerCasePinyinStr.length() - 1).replaceAll("v", "ü");
+          return lowerCasePinyinStr.substring(0, indexOfUnmarkedVowel).replaceAll("v", "ü")
+              + markedVowel
+              + lowerCasePinyinStr.substring(indexOfUnmarkedVowel + 1,
+                  lowerCasePinyinStr.length() - 1).replaceAll("v", "ü");
 
         } else
         // error happens in the procedure of locating vowel

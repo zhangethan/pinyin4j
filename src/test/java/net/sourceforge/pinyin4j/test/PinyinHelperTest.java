@@ -1,21 +1,33 @@
 package net.sourceforge.pinyin4j.test;
 
-import junit.framework.TestCase;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
+import org.junit.Test;
 
-public class PinyinHelperTest extends TestCase {
+import static org.junit.Assert.*;
+
+public class PinyinHelperTest {
+
+  private void assertNullOrEmpty(String[] array) {
+    if (array == null) {
+      assertNull(array);
+      return;
+    }
+    assertArrayEquals(new String[] {}, array);
+  }
+
+  @Test
   public void testToTongyongPinyinStringArray() {
     // any input of non-Chinese characters will return null
     {
-      assertNull(PinyinHelper.toTongyongPinyinStringArray('A'));
-      assertNull(PinyinHelper.toTongyongPinyinStringArray('z'));
-      assertNull(PinyinHelper.toTongyongPinyinStringArray(','));
-      assertNull(PinyinHelper.toTongyongPinyinStringArray('。'));
+      assertNullOrEmpty(PinyinHelper.toTongyongPinyinStringArray('A'));
+      assertNullOrEmpty(PinyinHelper.toTongyongPinyinStringArray('z'));
+      assertNullOrEmpty(PinyinHelper.toTongyongPinyinStringArray(','));
+      assertNullOrEmpty(PinyinHelper.toTongyongPinyinStringArray('。'));
     }
 
     // Chinese characters
@@ -75,13 +87,14 @@ public class PinyinHelperTest extends TestCase {
     }
   }
 
+  @Test
   public void testToWadeGilesPinyinStringArray() {
     // any input of non-Chinese characters will return null
     {
-      assertNull(PinyinHelper.toWadeGilesPinyinStringArray('A'));
-      assertNull(PinyinHelper.toWadeGilesPinyinStringArray('z'));
-      assertNull(PinyinHelper.toWadeGilesPinyinStringArray(','));
-      assertNull(PinyinHelper.toWadeGilesPinyinStringArray('。'));
+      assertNullOrEmpty(PinyinHelper.toWadeGilesPinyinStringArray('A'));
+      assertNullOrEmpty(PinyinHelper.toWadeGilesPinyinStringArray('z'));
+      assertNullOrEmpty(PinyinHelper.toWadeGilesPinyinStringArray(','));
+      assertNullOrEmpty(PinyinHelper.toWadeGilesPinyinStringArray('。'));
     }
 
     // Chinese characters
@@ -141,13 +154,14 @@ public class PinyinHelperTest extends TestCase {
     }
   }
 
+  @Test
   public void testToMPS2PinyinStringArray() {
     // any input of non-Chinese characters will return null
     {
-      assertNull(PinyinHelper.toMPS2PinyinStringArray('A'));
-      assertNull(PinyinHelper.toMPS2PinyinStringArray('z'));
-      assertNull(PinyinHelper.toMPS2PinyinStringArray(','));
-      assertNull(PinyinHelper.toMPS2PinyinStringArray('。'));
+      assertNullOrEmpty(PinyinHelper.toMPS2PinyinStringArray('A'));
+      assertNullOrEmpty(PinyinHelper.toMPS2PinyinStringArray('z'));
+      assertNullOrEmpty(PinyinHelper.toMPS2PinyinStringArray(','));
+      assertNullOrEmpty(PinyinHelper.toMPS2PinyinStringArray('。'));
     }
 
     // Chinese characters
@@ -207,13 +221,14 @@ public class PinyinHelperTest extends TestCase {
     }
   }
 
+  @Test
   public void testToYalePinyinStringArray() {
     // any input of non-Chinese characters will return null
     {
-      assertNull(PinyinHelper.toYalePinyinStringArray('A'));
-      assertNull(PinyinHelper.toYalePinyinStringArray('z'));
-      assertNull(PinyinHelper.toYalePinyinStringArray(','));
-      assertNull(PinyinHelper.toYalePinyinStringArray('。'));
+      assertNullOrEmpty(PinyinHelper.toYalePinyinStringArray('A'));
+      assertNullOrEmpty(PinyinHelper.toYalePinyinStringArray('z'));
+      assertNullOrEmpty(PinyinHelper.toYalePinyinStringArray(','));
+      assertNullOrEmpty(PinyinHelper.toYalePinyinStringArray('。'));
     }
 
     // Chinese characters
@@ -273,13 +288,14 @@ public class PinyinHelperTest extends TestCase {
     }
   }
 
+  @Test
   public void testToGwoyeuRomatzyhStringArray() {
     // any input of non-Chinese characters will return null
     {
-      assertNull(PinyinHelper.toGwoyeuRomatzyhStringArray('A'));
-      assertNull(PinyinHelper.toGwoyeuRomatzyhStringArray('z'));
-      assertNull(PinyinHelper.toGwoyeuRomatzyhStringArray(','));
-      assertNull(PinyinHelper.toGwoyeuRomatzyhStringArray('。'));
+      assertNullOrEmpty(PinyinHelper.toGwoyeuRomatzyhStringArray('A'));
+      assertNullOrEmpty(PinyinHelper.toGwoyeuRomatzyhStringArray('z'));
+      assertNullOrEmpty(PinyinHelper.toGwoyeuRomatzyhStringArray(','));
+      assertNullOrEmpty(PinyinHelper.toGwoyeuRomatzyhStringArray('。'));
     }
 
     // Chinese characters
@@ -361,16 +377,17 @@ public class PinyinHelperTest extends TestCase {
     }
   }
 
+  @Test
   public void testToHanyuPinyinStringArray() {
 
     // any input of non-Chinese characters will return null
     {
       HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
       try {
-        assertNull(PinyinHelper.toHanyuPinyinStringArray('A', defaultFormat));
-        assertNull(PinyinHelper.toHanyuPinyinStringArray('z', defaultFormat));
-        assertNull(PinyinHelper.toHanyuPinyinStringArray(',', defaultFormat));
-        assertNull(PinyinHelper.toHanyuPinyinStringArray('。', defaultFormat));
+        assertNullOrEmpty(PinyinHelper.toHanyuPinyinStringArray('A', defaultFormat));
+        assertNullOrEmpty(PinyinHelper.toHanyuPinyinStringArray('z', defaultFormat));
+        assertNullOrEmpty(PinyinHelper.toHanyuPinyinStringArray(',', defaultFormat));
+        assertNullOrEmpty(PinyinHelper.toHanyuPinyinStringArray('。', defaultFormat));
       } catch (BadHanyuPinyinOutputFormatCombination e) {
         e.printStackTrace();
       }
@@ -484,6 +501,7 @@ public class PinyinHelperTest extends TestCase {
   /**
    * test for combination of output formats
    */
+  @Test
   public void testOutputCombination() {
     try {
       HanyuPinyinOutputFormat outputFormat = new HanyuPinyinOutputFormat();

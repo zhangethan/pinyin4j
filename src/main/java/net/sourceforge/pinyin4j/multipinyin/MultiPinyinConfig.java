@@ -6,5 +6,5 @@ package net.sourceforge.pinyin4j.multipinyin;
  * E-Mail:yibo.liu@tqmall.com
  */
 public final class MultiPinyinConfig {
-    public static String multiPinyinPath;//外挂多音字路径
+  public static String multiPinyinPath;//外挂多音字路径
 }
