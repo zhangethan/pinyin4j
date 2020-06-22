@@ -14,7 +14,10 @@
     <version>2.6.0</version>
 
     <name>Chinese to Pinyin</name>
-    <description>Support Chinese character (both Simplified and Tranditional) to most popular Pinyin systems, including Hanyu Pinyin, Tongyong Pinyin, Wade-Giles, MPS2, Yale and Gwoyeu Romatzyh. Support multiple pronounciations and customized output.</description>
+    <description>Support Chinese character (both Simplified and Tranditional) to most popular Pinyin systems, including
+        Hanyu Pinyin, Tongyong Pinyin, Wade-Giles, MPS2, Yale and Gwoyeu Romatzyh. Support multiple pronounciations and
+        customized output.
+    </description>
     <url>https://github.com/wnjustdoit/pinyin4j</url>
 
     <licenses>
@@ -58,69 +61,104 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>release</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.googlecode.maven-java-formatter-plugin</groupId>
+                        <artifactId>maven-java-formatter-plugin</artifactId>
+                        <version>0.3.1</version>
+                        <configuration>
+                            <compilerCompliance>${maven.compiler.source}</compilerCompliance>
+                            <compilerSource>${maven.compiler.source}</compilerSource>
+                            <compilerTargetPlatform>${maven.compiler.source}</compilerTargetPlatform>
+                            <configFile>${project.basedir}/eclipse-java-google-style.xml</configFile>
+                            <lineEnding>LF</lineEnding>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>format</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.9.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.22.2</version>
+                        <configuration>
+                            <skip>true</skip>
+                            <skipTests>true</skipTests>
+                            <testFailureIgnore>true</testFailureIgnore>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.8</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>sonatype-nexus-staging</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
+
     <build>
-        <plugins>
-            <plugin>
-                <groupId>com.googlecode.maven-java-formatter-plugin</groupId>
-                <artifactId>maven-java-formatter-plugin</artifactId>
-                <version>0.3.1</version>
-                <configuration>
-                    <compilerCompliance>${maven.compiler.source}</compilerCompliance>
-                    <compilerSource>${maven.compiler.source}</compilerSource>
-                    <compilerTargetPlatform>${maven.compiler.source}</compilerTargetPlatform>
-                    <configFile>${project.basedir}/eclipse-java-google-style.xml</configFile>
-                    <lineEnding>LF</lineEnding>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>format</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-javadoc-plugin</artifactId>-->
-<!--                <version>2.9.1</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>attach-javadocs</id>-->
-<!--                        <goals>-->
-<!--                            <goal>jar</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-            <!--  必须配置GPG插件用于使用以下配置对组件进行签名 -->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-gpg-plugin</artifactId>-->
-<!--                <version>1.5</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>sign-artifacts</id>-->
-<!--                        <phase>verify</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>sign</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-        </plugins>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -155,7 +193,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <execute />
+                                        <execute/>
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
