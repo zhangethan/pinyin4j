@@ -1,17 +1,23 @@
-pinyin4j
-========
+## pinyin4j
 
-来自库：https://github.com/belerweb/pinyin4j ，但有机会长期维护。
+---
+### maven坐标
+```
+        <dependency>
+            <groupId>io.github.wnjustdoit</groupId>
+            <artifactId>pinyin4j</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+```
 
-### QQ Group ###
+### QQ Group
 QQ群：939928163
 
-### 多音字识别 ###
+### 多音字识别
 在pinyin4j的基础上添加了多音字识别，带近一万个多音词，但是这远远不够，所以用户可设置外挂词库	
 
-### 外挂多音词库 ###
-用户配置的外挂词库会覆盖系统中相同词的读音,可用于纠错
-
+### 外挂多音词库
+用户配置的外挂词库会覆盖系统中相同词的读音,可用于纠错。   
 配置方式很简单,只需要配置路径即可 
 ```
 MultiPinyinConfig.multiPinyinPath="/Users/yiboliu/my_multi_pinyin.txt"
