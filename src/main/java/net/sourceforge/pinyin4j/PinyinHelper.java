@@ -291,12 +291,12 @@ public class PinyinHelper {
         if (retain) {
           resultPinyinStrBuf.append(chars[i]);
         }
-        if (i > 0 && !retainSeparator && lastHasResult) {
+        if (i > 0 && retain && !retainSeparator && lastHasResult) {
           resultPinyinStrBuf.delete(resultPinyinStrBuf.length() - 1 - separate.length(),
               resultPinyinStrBuf.length() - 1);
         }
       } else {
-        if (i > 0 && retainSeparator && !lastHasResult) {
+        if (i > 0 && retain && retainSeparator && !lastHasResult) {
           if (current < chars.length) {
             resultPinyinStrBuf.append(separate);
           }

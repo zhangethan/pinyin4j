@@ -47,6 +47,15 @@ public class NewPinyinHelperTest {
 
     String result6 = PinyinHelper.toHanYuPinyinString("浅浅淡淡ω", format, " ", true, true);
     assertEquals("jiān jiān dàn dàn ω", result6);
+
+
+
+    assertEquals("yī rì qiān lĭ",
+            PinyinHelper.toHanYuPinyinString("一日,千里", format, " ", false, false));
+
+    assertEquals("yī rì qiān lĭ",
+            PinyinHelper.toHanYuPinyinString("一日,千里", format, " ", false, true));
+
   }
 
 }
