@@ -56,6 +56,12 @@ public class NewPinyinHelperTest {
     assertEquals("yī rì qiān lĭ",
             PinyinHelper.toHanYuPinyinString("一日,千里", format, " ", false, true));
 
+    assertEquals("yī rì qiān lĭ",
+            PinyinHelper.toHanYuPinyinString(",一日千里", format, " ", false, false));
+
+    assertEquals("yī rì qiān lĭ",
+            PinyinHelper.toHanYuPinyinString(",一日,千里,", format, " ", false, false));
+
   }
 
 }
